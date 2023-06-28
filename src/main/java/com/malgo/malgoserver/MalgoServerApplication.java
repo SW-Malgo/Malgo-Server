@@ -9,5 +9,4 @@ public class MalgoServerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MalgoServerApplication.class, args);
 	}
-
 }

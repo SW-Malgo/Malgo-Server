@@ -1,34 +1,116 @@
-plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.13'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+buildscript {
+    ext {
+        projectName = 'Malgo'
+        projectVersion = '1.0.1'
+        springBootVersion = '2.7.4'
+        dependencyManagementVersion = '1.0.11.RELEASE'
+        flywayVersion = '7.15.0'
+        spotlessVersion = '6.8.0'
+        asciidoctorVersion = '3.3.2'
+        jsonwebtokenVersion = '0.11.5'
+    }
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
+    }
 }
+
+plugins {
+    id 'java'
+    id "com.diffplug.spotless" version "${spotlessVersion}"
+    id "io.spring.dependency-management" version "${dependencyManagementVersion}"
+    id 'org.asciidoctor.jvm.convert' version "${asciidoctorVersion}"
+    id 'com.epages.restdocs-api-spec' version '0.16.0'
+}
+
+apply plugin: 'java'
+apply plugin: 'java-library'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
 
 group = 'com.malgo'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '11'
+    sourceCompatibility = '11'
 }
 
 configurations {
-	compileOnly {
-		extendsFrom annotationProcessor
-	}
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    implementation 'mysql:mysql-connector-java'
+
+    // flyway
+    implementation 'org.flywaydb:flyway-core:9.16.0'
+    implementation "org.flywaydb:flyway-mysql"
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
-	useJUnitPlatform()
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+}
+
+spotless {
+    java {
+        importOrder()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        googleJavaFormat('1.12.0')
+        indentWithTabs(2)
+        endWithNewline()
+        target 'src/*/java/**/*.java'
+    }
+
+    format 'misc', {
+        target '**/*.gradle', '**/*.md', '**/.gitignore'
+        targetExclude '.release/*.*'
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+/*convert snippet to swagger*/
+openapi3 {
+    servers = [{ url = "http://localhost:8080" }]
+    title = projectName
+    version = projectVersion
+    format = 'yaml'
+    snippetsDirectory = "build/generated-snippets/"
+    outputDirectory = "src/main/resources/static/"
+    outputFileNamePrefix = 'openapi3'
+}
+
+postman {
+    title = projectName
+    version = projectVersion
+    baseUrl = 'http://localhost:8080'
+    outputDirectory = "src/main/resources/static/"
+    outputFileNamePrefix = 'postman'
 }
