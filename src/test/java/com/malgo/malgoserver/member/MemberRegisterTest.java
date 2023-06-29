@@ -7,7 +7,6 @@ import com.malgo.malgoserver.company.Company;
 import com.malgo.malgoserver.company.CompanyRepository;
 import com.malgo.malgoserver.keyword.Keyword;
 import com.malgo.malgoserver.keyword.KeywordRepository;
-import com.malgo.malgoserver.member.request.MemberRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -43,38 +42,39 @@ public class MemberRegisterTest {
 	private static final String COMPANY_NAME = "삼성전자";
 	private static final String COMPANY_CODE = "dEb25A";
 
-//	@Test
-//	public void 정상_회원가입_service() throws Exception {
-//		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
-//		Company savedCompany = companyRepository.save(company);
-//
-//		for (int i = 0; i < keywords.length; i++) {
-//			keywordRepository.save(Keyword.builder().tag(keywords[i]).build());
-//		}
-//
-//		List<String> keywordList =
-//				keywordRepository.findAll().stream().map(Keyword::getTag).collect(Collectors.toList());
-//
-//		MemberRequest request =
-//				MemberRequest.builder()
-//						.certificationId(CERTIFICATION_ID)
-//						.password(PASSWORD)
-//						.code(COMPANY_CODE)
-//						.keywords(keywordList)
-//						.build();
-//		memberService.save(request);
-//
-//		Optional<Member> savedMember = memberRepository.findByCertificationId(CERTIFICATION_ID);
-//
-//		assertThat(savedMember.isPresent()).isTrue();
-//		assertThat(savedMember.get().getCertificationId()).isEqualTo(CERTIFICATION_ID);
-//		assertThat(savedMember.get().getPassword()).isEqualTo(PASSWORD);
-//		assertThat(savedMember.get().getCompany().getName()).isEqualTo(COMPANY_NAME);
-//		assertThat(savedMember.get().getCompany().getCode()).isEqualTo(COMPANY_CODE);
-//		assertThat(savedMember.get().getKeywords()).isEqualTo(keywordList);
-//		assertThat(savedMember.get().getCreateAt()).isNotNull();
-//		assertThat(savedMember.get().getUpdateAt()).isNotNull();
-//	}
+	// Todo : 회원가입 service 단 테스트 - jwt 토큰 생성 확인
+	//	@Test
+	//	public void 정상_회원가입_service() throws Exception {
+	//		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
+	//		Company savedCompany = companyRepository.save(company);
+	//
+	//		for (int i = 0; i < keywords.length; i++) {
+	//			keywordRepository.save(Keyword.builder().tag(keywords[i]).build());
+	//		}
+	//
+	//		List<String> keywordList =
+	//				keywordRepository.findAll().stream().map(Keyword::getTag).collect(Collectors.toList());
+	//
+	//		MemberRequest request =
+	//				MemberRequest.builder()
+	//						.certificationId(CERTIFICATION_ID)
+	//						.password(PASSWORD)
+	//						.code(COMPANY_CODE)
+	//						.keywords(keywordList)
+	//						.build();
+	//		memberService.save(request);
+	//
+	//		Optional<Member> savedMember = memberRepository.findByCertificationId(CERTIFICATION_ID);
+	//
+	//		assertThat(savedMember.isPresent()).isTrue();
+	//		assertThat(savedMember.get().getCertificationId()).isEqualTo(CERTIFICATION_ID);
+	//		assertThat(savedMember.get().getPassword()).isEqualTo(PASSWORD);
+	//		assertThat(savedMember.get().getCompany().getName()).isEqualTo(COMPANY_NAME);
+	//		assertThat(savedMember.get().getCompany().getCode()).isEqualTo(COMPANY_CODE);
+	//		assertThat(savedMember.get().getKeywords()).isEqualTo(keywordList);
+	//		assertThat(savedMember.get().getCreateAt()).isNotNull();
+	//		assertThat(savedMember.get().getUpdateAt()).isNotNull();
+	//	}
 
 	@Test
 	public void 정상_회원가입_repository() throws Exception {

@@ -26,10 +26,7 @@ public class MemberQueryService {
 
 		List<String> tags = keywords.stream().map(Keyword::getTag).collect(Collectors.toList());
 
-		return MemberResponse.builder()
-				.count(memberId)
-				.keywords(tags)
-				.build();
+		return MemberResponse.builder().count(memberId).keywords(tags).build();
 	}
 
 	public String findCompany() {
