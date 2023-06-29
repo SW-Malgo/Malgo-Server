@@ -1,8 +1,8 @@
 package com.malgo.malgoserver.support;
 
+import com.malgo.malgoserver.support.ApiResponse.FailureBody;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Path;
-import jongjun.hairlog.app.support.ApiResponse.FailureBody;
 import lombok.experimental.UtilityClass;
 import org.hibernate.TypeMismatchException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
