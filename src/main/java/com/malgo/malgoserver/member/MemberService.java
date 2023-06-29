@@ -5,7 +5,8 @@ import com.malgo.malgoserver.company.CompanyRepository;
 import com.malgo.malgoserver.keyword.Keyword;
 import com.malgo.malgoserver.keyword.KeywordRepository;
 import com.malgo.malgoserver.member.request.MemberRequest;
-import com.malgo.malgoserver.member.response.MemberResponse;
+import com.malgo.malgoserver.util.token.Token;
+import com.malgo.malgoserver.util.token.TokenGenerator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,7 +23,7 @@ public class MemberService {
 	private final CompanyRepository companyRepository;
 	private final KeywordRepository keywordRepository;
 
-	public MemberResponse save(MemberRequest form) {
+	public Token save(MemberRequest form) {
 		Optional<Company> company = companyRepository.findOneByCode(form.getCode());
 
 		if (company.isPresent()) {
@@ -31,10 +32,10 @@ public class MemberService {
 							.certificationId(form.getCertificationId())
 							.password(form.getPassword())
 							.company(company.get())
-							.keyword(convertToLongKeywords(form.getKeyword()))
+							.keyword(convertToLongKeywords(form.getKeywords()))
 							.build();
 			memberRepository.save(member);
-			return new MemberResponse(member, form.getKeyword());
+			return TokenGenerator.generateToken(member.getId(), member.getCompany().getId());
 		}
 		return null;
 	}
