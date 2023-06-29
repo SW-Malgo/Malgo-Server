@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,12 +18,12 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Entity
 @ToString
 @Builder(toBuilder = true)
+@EntityListeners(AuditingEntityListener.class)
 public class Member {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "member_id")
-	@NotNull
 	private Long id;
 
 	@NotNull private String certificationId;
@@ -34,6 +35,7 @@ public class Member {
 
 	@NotNull
 	@Convert(converter = KeywordConverter.class)
+	@Builder.Default
 	private List<Long> keyword = new ArrayList<>();
 
 	@Column(nullable = false, updatable = false)

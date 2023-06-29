@@ -13,7 +13,12 @@ public class KeywordConverter implements AttributeConverter<List<Long>, String> 
 
 	@Override
 	public String convertToDatabaseColumn(List<Long> attribute) {
-		return String.join(DELIMITER, (CharSequence) attribute);
+		StringBuilder target = new StringBuilder();
+		for (Long id : attribute) {
+			target.append(id).append(DELIMITER);
+		}
+		String substr = target.substring(0, target.length() - 1);
+		return substr.toString();
 	}
 
 	@Override

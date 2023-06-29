@@ -8,6 +8,7 @@ import javax.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,11 +16,11 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Entity
 @ToString
 @Builder(toBuilder = true)
+@EntityListeners(AuditingEntityListener.class)
 public class Keyword {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "keyword_id")
-	@NotNull
 	private Long id;
 
 	@NotNull private String tag;
