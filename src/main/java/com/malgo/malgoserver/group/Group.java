@@ -3,6 +3,7 @@ package com.malgo.malgoserver.group;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Builder(toBuilder = true)
@@ -27,4 +28,8 @@ public class Group {
 //    private Company company;
 
     private Long max_count;
+
+    private LocalDateTime createAt;
+
+    private LocalDateTime updateAt;
 }

@@ -4,8 +4,10 @@ import com.malgo.malgoserver.group.Group;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
+@Builder(toBuilder = true)
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,9 +25,7 @@ public class GroupPost {
     @JoinColumn(name = "group_id")
     private Group group;
 
-    @Builder
-    public GroupPost(String content, Group group) {
-        this.content = content;
-        this.group = group;
-    }
+    private LocalDateTime createAt;
+
+    private LocalDateTime updateAt;
 }
