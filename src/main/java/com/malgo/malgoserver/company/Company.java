@@ -2,14 +2,16 @@ package com.malgo.malgoserver.company;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Company {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,9 +22,14 @@ public class Company {
 	@NotNull private String name;
 	@NotNull private String code;
 
-	@Builder
-	public Company(String name, String code) {
-		this.name = name;
-		this.code = code;
+	@NotNull
+	@CreationTimestamp
+	private LocalDateTime createAt;
+	@NotNull
+	@UpdateTimestamp
+	private LocalDateTime updateAt;
+
+	public Company() {
+
 	}
 }
