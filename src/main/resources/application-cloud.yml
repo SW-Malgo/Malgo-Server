@@ -1,8 +1,8 @@
 cloud:
   aws:
     credentials:
-      accessKey: AKIATAIHYCWHF3X6DQKK
-      secretKey: 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
+      accessKey: AKIATAIHYCWHJN45GOHC
+      secretKey: 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
     s3:
       bucket: malgo.images
     region:

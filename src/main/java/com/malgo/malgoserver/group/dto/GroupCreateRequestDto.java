@@ -1,14 +1,11 @@
 package com.malgo.malgoserver.group.dto;
 
-import com.malgo.malgoserver.image.entity.GroupImage;
-import com.malgo.malgoserver.keyword.Keyword;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 @Data
 @Builder
@@ -16,12 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 public class GroupCreateRequestDto {
 
-    private List<MultipartFile> images;
+	private List<MultipartFile> images;
 
-    private String groupName;
+	private String groupName;
 
-    private String groupContents;
+	private String groupContents;
 
-    private List<String> keywords;
-
+	private List<String> keywords;
 }

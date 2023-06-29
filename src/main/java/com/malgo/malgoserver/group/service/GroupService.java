@@ -11,32 +11,25 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class GroupService {
 
-    private final GroupRepository groupRepository;
-    private final MemberService memberService;
-    private final GroupMembersRepository groupMembersRepository;
-    private final MemberRepository memberRepository;
+	private final GroupRepository groupRepository;
+	private final MemberService memberService;
+	private final GroupMembersRepository groupMembersRepository;
+	private final MemberRepository memberRepository;
 
-    public Long createGroup(Group group) {
-        return groupRepository.save(group).getId();
-    }
+	public Long createGroup(Group group) {
+		return groupRepository.save(group).getId();
+	}
 
-    public void joinGroup(Long memberId, Long groupId) {
-        Member member = memberService.findMember(memberId);
-        Group group = groupRepository.findById(groupId).orElseThrow(() -> new IllegalArgumentException());
+	public void joinGroup(Long memberId, Long groupId) {
+		Member member = memberService.findMember(memberId);
+		Group group =
+				groupRepository.findById(groupId).orElseThrow(() -> new IllegalArgumentException());
 
-        GroupMembers groupMembers = GroupMembers.builder()
-                .member(member)
-                .group(group)
-                .build();
-    }
-
-
+		GroupMembers groupMembers = GroupMembers.builder().member(member).group(group).build();
+	}
 }
