@@ -36,7 +36,7 @@ public class Member {
 	@NotNull
 	@Convert(converter = KeywordConverter.class)
 	@Builder.Default
-	private List<Long> keyword = new ArrayList<>();
+	private List<Long> keywords = new ArrayList<>();
 
 	@Column(nullable = false, updatable = false)
 	@CreatedDate
