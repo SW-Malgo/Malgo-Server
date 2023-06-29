@@ -7,11 +7,12 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-@Entity
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Entity
+@ToString
+@Builder(toBuilder = true)
 public class Company {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,11 @@ public class Company {
 	@NotNull private String name;
 	@NotNull private String code;
 
-	@NotNull @CreatedDate private LocalDateTime createAt;
-	@NotNull @LastModifiedDate private LocalDateTime updateAt;
+	@Column(nullable = false, updatable = false)
+	@CreatedDate
+	private LocalDateTime createAt;
+
+	@Column(nullable = false)
+	@LastModifiedDate
+	private LocalDateTime updateAt;
 }

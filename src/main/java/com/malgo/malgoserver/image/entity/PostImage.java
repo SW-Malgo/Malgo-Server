@@ -1,20 +1,23 @@
 package com.malgo.malgoserver.image.entity;
 
+import com.malgo.malgoserver.grouppost.GroupPost;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -31,7 +34,15 @@ public class PostImage {
 	@Column(nullable = false)
 	private String source;
 
-	@NotNull @CreationTimestamp private LocalDateTime createAt;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "group_post_fk")
+	private GroupPost groupPost;
 
-	@NotNull @UpdateTimestamp private LocalDateTime updateAt;
+	@Column(nullable = false, updatable = false)
+	@CreatedDate
+	private LocalDateTime createAt;
+
+	@Column(nullable = false)
+	@LastModifiedDate
+	private LocalDateTime updateAt;
 }
