@@ -1,0 +1,18 @@
+package com.malgo.malgoserver.keyword;
+
+import java.util.List;
+import javax.persistence.EntityManager;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Repository;
+
+@Repository
+@RequiredArgsConstructor
+public class KeywordRepository {
+	private final EntityManager em;
+
+	public List<Keyword> findByTags(List<String> tags) {
+		return em.createQuery("select k from Keyword k where k.tag in :tags", Keyword.class)
+				.setParameter("tags", tags)
+				.getResultList();
+	}
+}
