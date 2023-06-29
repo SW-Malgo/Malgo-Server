@@ -22,7 +22,6 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "member_id")
-	@NotNull
 	private Long id;
 
 	@NotNull private String certificationId;
@@ -34,6 +33,7 @@ public class Member {
 
 	@NotNull
 	@Convert(converter = KeywordConverter.class)
+	@Builder.Default
 	private List<Long> keyword = new ArrayList<>();
 
 	@Column(nullable = false, updatable = false)
