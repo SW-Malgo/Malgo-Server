@@ -7,6 +7,7 @@ import com.malgo.malgoserver.config.security.filter.AuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,13 +34,13 @@ public class SecurityConfig {
 		http.formLogin().disable();
 		http.httpBasic().disable();
 
-		//		http.authorizeHttpRequests()
-		//				.mvcMatchers(HttpMethod.GET, "/bar/tokens")
-		//				.permitAll()
-		//				.mvcMatchers("/bar/**")
-		//				.authenticated()
-		//				.anyRequest()
-		//				.denyAll();
+		http.authorizeHttpRequests()
+			.mvcMatchers(HttpMethod.POST, "/member")
+			.permitAll()
+			.mvcMatchers("/**")
+			.authenticated()
+			.anyRequest()
+			.denyAll();
 
 		http.addFilterAt(authenticationFilter(), AbstractPreAuthenticatedProcessingFilter.class);
 
