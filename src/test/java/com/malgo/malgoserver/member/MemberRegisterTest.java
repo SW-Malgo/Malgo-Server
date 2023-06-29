@@ -58,7 +58,7 @@ public class MemberRegisterTest {
 						.certificationId(CERTIFICATION_ID)
 						.password(PASSWORD)
 						.company(company)
-						.keyword(longKeywordList)
+						.keywords(longKeywordList)
 						.build();
 
 		memberRepository.save(member);
@@ -69,7 +69,7 @@ public class MemberRegisterTest {
 		assertThat(savedMember.get().getPassword()).isEqualTo(PASSWORD);
 		assertThat(savedMember.get().getCompany().getName()).isEqualTo(COMPANY_NAME);
 		assertThat(savedMember.get().getCompany().getCode()).isEqualTo(COMPANY_CODE);
-		assertThat(savedMember.get().getKeyword()).isEqualTo(longKeywordList);
+		assertThat(savedMember.get().getKeywords()).isEqualTo(longKeywordList);
 		assertThat(savedMember.get().getCreateAt()).isNotNull();
 		assertThat(savedMember.get().getUpdateAt()).isNotNull();
 	}
