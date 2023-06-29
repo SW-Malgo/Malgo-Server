@@ -43,23 +43,13 @@ public class GroupController {
 	@PostMapping("/")
 	public ApiResponse<ApiResponse.SuccessBody<Long>> createGroup(
 			@RequestBody GroupCreateRequestDto groupDto) {
-
-		//		groupDto
-		//				.getKeywords()
-		//				.forEach(
-		//						tag -> {
-		//							keywordService.createKeyword(tag);
-		//						});
-
 		return ApiResponseGenerator.success(groupService.createGroup(groupDto), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ApiResponse<ApiResponse.SuccessBody<GroupDetailResponseDto>> groupDetail(
 			@PathVariable Long id) {
-
 		GroupDetailResponseDto responseDto = groupQueryService.getGroupDetail(id);
-
 		return ApiResponseGenerator.success(responseDto, HttpStatus.OK);
 	}
 
