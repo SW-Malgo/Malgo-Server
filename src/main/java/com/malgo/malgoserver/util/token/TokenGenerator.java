@@ -23,35 +23,39 @@ public class TokenGenerator {
 	private Long refreshTokenValidTime;
 
 	private static final String MEMBER_ID_CLAIM_KEY = "memberId";
+	private static final String COMPANY_ID_CLAIM_KEY = "companyId";
 
-	public String generateAccessToken(Long memberId) {
+	public String generateAccessToken(Long memberId, Long companyId) {
 		Date now = new Date();
 
 		return Jwts.builder()
 				.setHeaderParam(Header.TYPE, Header.JWT_TYPE)
 				.claim(MEMBER_ID_CLAIM_KEY, memberId)
+				.claim(COMPANY_ID_CLAIM_KEY, companyId)
 				.setIssuedAt(now)
 				.setExpiration(new Date(now.getTime() + accessTokenValidTime))
 				.signWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
 				.compact();
 	}
 
-	String generateRefreshToken(Long memberId) {
+	String generateRefreshToken(Long memberId, Long companyId) {
 		Date now = new Date();
 
 		return Jwts.builder()
 				.setHeaderParam(Header.TYPE, Header.JWT_TYPE)
 				.claim(MEMBER_ID_CLAIM_KEY, memberId)
+				.claim(COMPANY_ID_CLAIM_KEY, companyId)
 				.setIssuedAt(now)
 				.setExpiration(new Date(now.getTime() + refreshTokenValidTime))
 				.signWith(Keys.hmacShaKeyFor(secretKey.getBytes()))
 				.compact();
 	}
 
-	public Token generateToken(Long memberId) {
+
+	public Token generateToken(Long memberId, Long companyId) {
 		return Token.builder()
-				.accessToken(generateAccessToken(memberId))
-				.refreshToken(generateRefreshToken(memberId))
+				.accessToken(generateAccessToken(memberId, companyId))
+				.refreshToken(generateRefreshToken(memberId, companyId))
 				.build();
 	}
 }

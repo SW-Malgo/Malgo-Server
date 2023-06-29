@@ -1,33 +1,28 @@
-package com.malgo.malgoserver.groupmembers;
+package com.malgo.malgoserver.company;
 
-import com.malgo.malgoserver.group.Group;
-import com.malgo.malgoserver.member.Member;
 import java.time.LocalDateTime;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Entity
+@ToString
 @Builder(toBuilder = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
-public class GroupMembers {
-
+@EntityListeners(AuditingEntityListener.class)
+public class Company {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "group_member_id")
+	@Column(name = "company_id")
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "company_fk")
-	private Member member;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "group_fk")
-	private Group group;
+	@NotNull private String name;
+	@NotNull private String code;
 
 	@Column(nullable = false, updatable = false)
 	@CreatedDate

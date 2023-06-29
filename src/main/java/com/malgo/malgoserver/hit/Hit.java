@@ -1,33 +1,30 @@
-package com.malgo.malgoserver.groupmembers;
+package com.malgo.malgoserver.hit;
 
-import com.malgo.malgoserver.group.Group;
-import com.malgo.malgoserver.member.Member;
+import com.malgo.malgoserver.keyword.Keyword;
 import java.time.LocalDateTime;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
-@Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Entity
+@ToString
 @Builder(toBuilder = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode(of = "id")
-public class GroupMembers {
-
+public class Hit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "group_member_id")
+	@Column(name = "hit_id")
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "company_fk")
-	private Member member;
+	@NotNull private int count;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "group_fk")
-	private Group group;
+	@NotNull
+	@OneToOne(fetch = FetchType.LAZY)
+	private Keyword keyword;
 
 	@Column(nullable = false, updatable = false)
 	@CreatedDate

@@ -1,6 +1,7 @@
 package com.malgo.malgoserver.config.security.auth;
 
 import com.malgo.malgoserver.config.security.exception.AccessTokenInvalidException;
+import com.malgo.malgoserver.util.token.AuthClaims;
 import com.malgo.malgoserver.util.token.TokenResolver;
 import java.util.Collections;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class AuthProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		Long memberId =
+		AuthClaims authClaims =
 				Optional.ofNullable(authentication.getPrincipal())
 						.map(String.class::cast)
 						.flatMap(tokenResolver::resolveToken)
@@ -36,7 +37,7 @@ public class AuthProvider implements AuthenticationProvider {
 
 		if (authentication instanceof PreAuthenticatedAuthenticationToken) {
 			return new PreAuthenticatedAuthenticationToken(
-					memberId,
+					authClaims,
 					PREAUTH_TOKEN_CREDENTIAL,
 					Collections.singleton(new SimpleGrantedAuthority(ROLE_USER)));
 		}
