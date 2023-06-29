@@ -4,6 +4,8 @@ import com.malgo.malgoserver.group.Group;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Builder(toBuilder = true)
@@ -24,7 +26,11 @@ public class GroupPost {
 	@JoinColumn(name = "group_id")
 	private Group group;
 
+	@Column(nullable = false, updatable = false)
+	@CreatedDate
 	private LocalDateTime createAt;
 
+	@Column(nullable = false)
+	@LastModifiedDate
 	private LocalDateTime updateAt;
 }

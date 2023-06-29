@@ -10,15 +10,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -39,7 +38,11 @@ public class PostImage {
 	@JoinColumn(name = "group_post_fk")
 	private GroupPost groupPost;
 
-	@NotNull @CreationTimestamp private LocalDateTime createAt;
+	@Column(nullable = false, updatable = false)
+	@CreatedDate
+	private LocalDateTime createAt;
 
-	@NotNull @UpdateTimestamp private LocalDateTime updateAt;
+	@Column(nullable = false)
+	@LastModifiedDate
+	private LocalDateTime updateAt;
 }

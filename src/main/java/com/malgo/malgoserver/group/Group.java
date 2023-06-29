@@ -4,6 +4,8 @@ import com.malgo.malgoserver.company.Company;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Builder(toBuilder = true)
@@ -29,7 +31,11 @@ public class Group {
 
 	private Long max_count;
 
+	@Column(nullable = false, updatable = false)
+	@CreatedDate
 	private LocalDateTime createAt;
 
+	@Column(nullable = false)
+	@LastModifiedDate
 	private LocalDateTime updateAt;
 }

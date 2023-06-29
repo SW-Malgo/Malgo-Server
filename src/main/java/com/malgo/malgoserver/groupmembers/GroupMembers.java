@@ -5,6 +5,8 @@ import com.malgo.malgoserver.member.Member;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Getter
@@ -27,7 +29,11 @@ public class GroupMembers {
 	@JoinColumn(name = "group_fk")
 	private Group group;
 
+	@Column(nullable = false, updatable = false)
+	@CreatedDate
 	private LocalDateTime createAt;
 
+	@Column(nullable = false)
+	@LastModifiedDate
 	private LocalDateTime updateAt;
 }

@@ -8,8 +8,8 @@ import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,6 +36,11 @@ public class Member {
 	@Convert(converter = KeywordConverter.class)
 	private List<Long> keyword = new ArrayList<>();
 
-	@NotNull @CreationTimestamp private LocalDateTime createAt;
-	@NotNull @UpdateTimestamp private LocalDateTime updateAt;
+	@Column(nullable = false, updatable = false)
+	@CreatedDate
+	private LocalDateTime createAt;
+
+	@Column(nullable = false)
+	@LastModifiedDate
+	private LocalDateTime updateAt;
 }
