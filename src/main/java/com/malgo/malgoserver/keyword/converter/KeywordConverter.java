@@ -17,12 +17,18 @@ public class KeywordConverter implements AttributeConverter<List<Long>, String> 
 		for (Long id : attribute) {
 			target.append(id).append(DELIMITER);
 		}
-		String substr = target.substring(0, target.length() - 1);
-		return substr.toString();
+		if (target.length() == 0) {
+			return "";
+		} else {
+			return target.substring(0, target.length() - 1);
+		}
 	}
 
 	@Override
 	public List<Long> convertToEntityAttribute(String dbData) {
+		if (dbData.equals("")) {
+			return List.of();
+		}
 		return Arrays.stream(dbData.split(DELIMITER))
 				.mapToLong(Long::parseLong)
 				.boxed()
