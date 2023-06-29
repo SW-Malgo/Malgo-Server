@@ -1,5 +1,7 @@
 package com.malgo.malgoserver.member;
 
+import com.malgo.malgoserver.company.CompanyRepository;
+import com.malgo.malgoserver.config.security.AuditorHolder;
 import com.malgo.malgoserver.keyword.Keyword;
 import com.malgo.malgoserver.keyword.KeywordRepository;
 import com.malgo.malgoserver.member.response.MemberResponse;
@@ -13,11 +15,11 @@ import org.springframework.stereotype.Service;
 public class MemberQueryService {
 
 	private final MemberRepository memberRepository;
+	private final CompanyRepository companyRepository;
 	private final KeywordRepository keywordRepository;
 
 	public MemberResponse findMemberHome() {
-		// token에서 memberId를 꺼낸다
-		Long memberId = 1L;
+		Long memberId = AuditorHolder.get().getMemberId();
 
 		List<Keyword> keywords =
 				memberRepository.findOne(memberId).getKeywords().stream()
@@ -30,8 +32,6 @@ public class MemberQueryService {
 	}
 
 	public String findCompany() {
-		// token에서 memberId를 꺼낸다
-		Long memberId = 1L;
-		return memberRepository.findOne(memberId).getCompany().getName();
+		return companyRepository.findOne(AuditorHolder.get().getCompanyId()).get().getName();
 	}
 }
