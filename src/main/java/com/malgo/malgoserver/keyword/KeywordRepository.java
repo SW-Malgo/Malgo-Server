@@ -20,4 +20,8 @@ public class KeywordRepository {
 				.setParameter("tags", tags)
 				.getResultList();
 	}
+
+	public List<Keyword> findAll() {
+		return em.createQuery("select k from Keyword k", Keyword.class).getResultList();
+	}
 }

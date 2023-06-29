@@ -10,7 +10,7 @@ import com.malgo.malgoserver.keyword.KeywordRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -46,21 +46,36 @@ public class MemberRegisterTest {
 		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
 		Company savedCompany = companyRepository.save(company);
 
-		List<Keyword> keywordList = new ArrayList<>();
 		for (int i = 0; i < keywords.length; i++) {
-			keywordList.add(Keyword.builder().tag(keywords[i]).build());
+			keywordRepository.save(Keyword.builder().tag(keywords[i]).build());
 		}
 
-//		Member member = Member.builder()
-//				.certificationId(CERTIFICATION_ID)
-//				.password(PASSWORD)
-//				.company(company)
-//				.keyword()
-//				.build()
+		List<Long> longKeywordList =
+				keywordRepository.findAll().stream().map(Keyword::getId).collect(Collectors.toList());
+
+		Member member =
+				Member.builder()
+						.certificationId(CERTIFICATION_ID)
+						.password(PASSWORD)
+						.company(company)
+						.keyword(longKeywordList)
+						.build();
+
+		memberRepository.save(member);
+		Optional<Member> savedMember = memberRepository.findByCertificationId(CERTIFICATION_ID);
+
+		assertThat(savedMember.isPresent()).isTrue();
+		assertThat(savedMember.get().getCertificationId()).isEqualTo(CERTIFICATION_ID);
+		assertThat(savedMember.get().getPassword()).isEqualTo(PASSWORD);
+		assertThat(savedMember.get().getCompany().getName()).isEqualTo(COMPANY_NAME);
+		assertThat(savedMember.get().getCompany().getCode()).isEqualTo(COMPANY_CODE);
+		assertThat(savedMember.get().getKeyword()).isEqualTo(longKeywordList);
+		assertThat(savedMember.get().getCreateAt()).isNotNull();
+		assertThat(savedMember.get().getUpdateAt()).isNotNull();
 	}
 
 	@Test
-	public void 회사_조회(){
+	public void 회사_조회() {
 		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
 		companyRepository.save(company);
 		Optional<Company> savedCompany = companyRepository.findOneByCode(COMPANY_CODE);
@@ -71,6 +86,7 @@ public class MemberRegisterTest {
 		assertThat(savedCompany.get().getCreateAt()).isNotNull();
 		assertThat(savedCompany.get().getUpdateAt()).isNotNull();
 	}
+
 	@Test
 	public void 회사_생성() {
 		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
@@ -85,18 +101,16 @@ public class MemberRegisterTest {
 	}
 
 	@Test
-	public void 키워드_조회(){
-//		List<Keyword> savedKeywordList = new ArrayList<>();
-//		for (int i = 0; i < keywords.length; i++) {
-//			savedKeywordList.add(Keyword.builder().tag(keywords[i]).build());
-//		}
-//		keywordRepository.saveAll(savedKeywordList);
-//
-//		List<Keyword> keywordList = keywordRepository.findAll();
-//
-//		assertThat(keywordList.size()).isEqualTo(keywords.length);
-//		for (int i = 0; i < keywords.length; i++)
-//			assertThat(keywordList.get(i).getTag()).isEqualTo(keywords[i]);
+	public void 키워드_조회() {
+		for (int i = 0; i < keywords.length; i++) {
+			keywordRepository.save(Keyword.builder().tag(keywords[i]).build());
+		}
+
+		List<Keyword> savedKeywordList = keywordRepository.findAll();
+
+		assertThat(savedKeywordList.size()).isEqualTo(keywords.length);
+		for (int i = 0; i < keywords.length; i++)
+			assertThat(savedKeywordList.get(i).getTag()).isEqualTo(keywords[i]);
 	}
 
 	@Test
@@ -112,7 +126,7 @@ public class MemberRegisterTest {
 	}
 
 	@Test
-	public void 멤버_키워드_조회(){
+	public void 멤버_키워드_조회() {
 		List<Keyword> savedKeywordList = new ArrayList<>();
 		for (int i = 0; i < keywords.length; i++) {
 			savedKeywordList.add(Keyword.builder().tag(keywords[i]).build());
