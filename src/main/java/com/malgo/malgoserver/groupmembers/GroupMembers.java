@@ -3,6 +3,7 @@ package com.malgo.malgoserver.groupmembers;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -19,4 +20,8 @@ public class GroupMembers {
     private Long member_id;
 
     private Long group_id;
+
+    private LocalDateTime createAt;
+
+    private LocalDateTime updateAt;
 }
