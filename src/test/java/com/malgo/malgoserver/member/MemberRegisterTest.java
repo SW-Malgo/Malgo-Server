@@ -64,6 +64,6 @@ public class MemberRegisterTest {
 		assertThat(savedCompany.getName()).isEqualTo(COMPANY_NAME);
 		assertThat(savedCompany.getCode()).isEqualTo(COMPANY_CODE);
 		assertThat(savedCompany.getCreateAt()).isNotNull();
-		assertThat(savedCompany.getUpdateAt()).isNull();
+		assertThat(savedCompany.getUpdateAt()).isNotNull();
 	}
 }
