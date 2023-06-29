@@ -1,6 +1,5 @@
 package com.malgo.malgoserver.group.entity;
 
-import com.malgo.malgoserver.group.entity.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

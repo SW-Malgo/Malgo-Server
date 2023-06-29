@@ -2,13 +2,12 @@ package com.malgo.malgoserver.keywordgroup;
 
 import com.malgo.malgoserver.group.entity.Group;
 import com.malgo.malgoserver.keyword.Keyword;
+import java.time.LocalDateTime;
+import javax.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -19,23 +18,23 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class KeywordGroup {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "keyword_fk")
-    private Keyword keyword;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "keyword_fk")
+	private Keyword keyword;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_fk")
-    private Group group;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "group_fk")
+	private Group group;
 
-    @Column(nullable = false, updatable = false)
-    @CreatedDate
-    private LocalDateTime createAt;
+	@Column(nullable = false, updatable = false)
+	@CreatedDate
+	private LocalDateTime createAt;
 
-    @Column(nullable = false)
-    @LastModifiedDate
-    private LocalDateTime updateAt;
+	@Column(nullable = false)
+	@LastModifiedDate
+	private LocalDateTime updateAt;
 }
