@@ -35,12 +35,12 @@ public class SecurityConfig {
 		http.httpBasic().disable();
 
 		http.authorizeHttpRequests()
-			.mvcMatchers(HttpMethod.POST, "/member")
-			.permitAll()
-			.mvcMatchers("/**")
-			.authenticated()
-			.anyRequest()
-			.denyAll();
+				.mvcMatchers(HttpMethod.POST, "/member")
+				.permitAll()
+				.mvcMatchers("/**")
+				.authenticated()
+				.anyRequest()
+				.denyAll();
 
 		http.addFilterAt(authenticationFilter(), AbstractPreAuthenticatedProcessingFilter.class);
 
