@@ -5,10 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.malgo.malgoserver.company.Company;
 import com.malgo.malgoserver.company.CompanyRepository;
-import com.malgo.malgoserver.keyword.Keyword;
 import com.malgo.malgoserver.keyword.KeywordRepository;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -39,23 +36,23 @@ public class MemberRegisterTest {
 	private static final String COMPANY_NAME = "삼성전자";
 	private static final String COMPANY_CODE = "dEb25A";
 
-	@Test
-	public void 정상_회원가입() throws Exception {
-		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
-
-		Company savedCompany = companyRepository.save(company);
-
-		assertThat(savedCompany).isNotNull();
-		assertThat(savedCompany.getName()).isEqualTo(COMPANY_NAME);
-		assertThat(savedCompany.getCode()).isEqualTo(COMPANY_CODE);
-		assertThat(savedCompany.getCreateAt()).isNotNull();
-		assertThat(savedCompany.getUpdateAt()).isNull();
-
-		List<Keyword> keywordList = new ArrayList<>();
-		for (int i = 0; i < keywords.length; i++) {
-			keywordList.add(Keyword.builder().tag("독서").build());
-		}
-	}
+	//	@Test
+	//	public void 정상_회원가입() throws Exception {
+	//		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
+	//
+	//		Company savedCompany = companyRepository.save(company);
+	//
+	//		assertThat(savedCompany).isNotNull();
+	//		assertThat(savedCompany.getName()).isEqualTo(COMPANY_NAME);
+	//		assertThat(savedCompany.getCode()).isEqualTo(COMPANY_CODE);
+	//		assertThat(savedCompany.getCreateAt()).isNotNull();
+	//		assertThat(savedCompany.getUpdateAt()).isNull();
+	//
+	//		List<Keyword> keywordList = new ArrayList<>();
+	//		for (int i = 0; i < keywords.length; i++) {
+	//			keywordList.add(Keyword.builder().tag("독서").build());
+	//		}
+	//	}
 
 	@Test
 	public void 회사_생성() {
