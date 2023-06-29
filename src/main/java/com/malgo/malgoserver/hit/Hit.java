@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Getter
@@ -26,6 +26,6 @@ public class Hit {
 	@OneToOne(fetch = FetchType.LAZY)
 	private Keyword keyword;
 
-	@NotNull @CreationTimestamp private LocalDateTime createAt;
-	@NotNull @UpdateTimestamp private LocalDateTime updateAt;
+	@NotNull @CreatedDate private LocalDateTime createAt;
+	@NotNull @LastModifiedDate private LocalDateTime updateAt;
 }
