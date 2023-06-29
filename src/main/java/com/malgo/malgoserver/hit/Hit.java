@@ -1,6 +1,6 @@
 package com.malgo.malgoserver.hit;
 
-import com.malgo.malgoserver.Keyword.Keyword;
+import com.malgo.malgoserver.keyword.Keyword;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

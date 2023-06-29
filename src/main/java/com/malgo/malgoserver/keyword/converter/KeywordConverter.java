@@ -1,4 +1,4 @@
-package com.malgo.malgoserver.Keyword.converter;
+package com.malgo.malgoserver.keyword.converter;
 
 import java.util.Arrays;
 import java.util.List;
