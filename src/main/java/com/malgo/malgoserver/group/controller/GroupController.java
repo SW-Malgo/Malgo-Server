@@ -3,7 +3,6 @@ package com.malgo.malgoserver.group.controller;
 import com.malgo.malgoserver.config.security.AuditorHolder;
 import com.malgo.malgoserver.group.dto.GroupCreateRequestDto;
 import com.malgo.malgoserver.group.dto.GroupDetailResponseDto;
-import com.malgo.malgoserver.group.entity.Group;
 import com.malgo.malgoserver.group.service.GroupQueryService;
 import com.malgo.malgoserver.group.service.GroupService;
 import com.malgo.malgoserver.group.service.GroupServiceFacade;
@@ -22,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(name = "/group")
+@RequestMapping(value = "/group")
 public class GroupController {
 
 	private final GroupQueryService groupQueryService;
@@ -45,26 +44,14 @@ public class GroupController {
 	public ApiResponse<ApiResponse.SuccessBody<Long>> createGroup(
 			@RequestBody GroupCreateRequestDto groupDto) {
 
-		AuthClaims authClaims = AuditorHolder.get();
-		Member currentUser = memberService.findMember(authClaims.getMemberId());
+		//		groupDto
+		//				.getKeywords()
+		//				.forEach(
+		//						tag -> {
+		//							keywordService.createKeyword(tag);
+		//						});
 
-		Group group =
-				Group.builder()
-						.name(groupDto.getGroupName())
-						.groupContent(groupDto.getGroupContents())
-						.max_count(10l)
-						.ownerId(currentUser.getId())
-						.build();
-		Long groupId = groupService.createGroup(group);
-
-		groupDto
-				.getKeywords()
-				.forEach(
-						tag -> {
-							keywordService.createKeyword(tag);
-						});
-
-		return ApiResponseGenerator.success(groupId, HttpStatus.OK);
+		return ApiResponseGenerator.success(groupService.createGroup(groupDto), HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")

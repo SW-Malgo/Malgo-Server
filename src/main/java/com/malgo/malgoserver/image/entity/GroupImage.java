@@ -2,14 +2,8 @@ package com.malgo.malgoserver.image.entity;
 
 import com.malgo.malgoserver.group.entity.Group;
 import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +12,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,6 +20,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @Entity
 @ToString
 @Builder(toBuilder = true)
+@EntityListeners(AuditingEntityListener.class)
 public class GroupImage {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

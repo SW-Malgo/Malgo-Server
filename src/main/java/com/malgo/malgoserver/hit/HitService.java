@@ -14,12 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 public class HitService {
 
 	private final HitRepository hitRepository;
-	private final KeywordRepository keywordRepository;
 
 	public List<String> findHitKeywords(int limit) {
 		List<Hit> hits = hitRepository.findHitKeywords(limit);
 		return hits.stream().map(Hit::getKeyword).collect(Collectors.toList()).stream()
 				.map(Keyword::getTag)
 				.collect(Collectors.toList());
+	}
+	public Long save(Hit hit){
+		return hitRepository.save(hit).getId();
 	}
 }

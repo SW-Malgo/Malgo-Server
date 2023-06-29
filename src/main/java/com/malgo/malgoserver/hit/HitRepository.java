@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public class HitRepository {
 	private final EntityManager em;
 
-	public Keyword save(Keyword hit) {
+	public Hit save(Hit hit) {
 		em.persist(hit);
 		return hit;
 	}
