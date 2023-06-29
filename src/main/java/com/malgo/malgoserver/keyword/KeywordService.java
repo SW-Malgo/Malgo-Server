@@ -11,10 +11,10 @@ public class KeywordService {
 
     private final KeywordRepository keywordRepository;
 
-    public long createKeyword(String tag) throws IllegalAccessException {
+    public long createKeyword(String tag) {
 
         if (keywordRepository.existByTag(tag)) {
-            throw new IllegalAccessException("존재하는 키워드 입니다.");
+            return -1l;
         }
         Keyword keyword = Keyword.builder()
                 .tag(tag)

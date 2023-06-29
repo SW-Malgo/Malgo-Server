@@ -22,6 +22,6 @@ public class GroupCreateRequestDto {
 
     private String groupContents;
 
-    private List<Keyword> keywords;
+    private List<String> keywords;
 
 }
