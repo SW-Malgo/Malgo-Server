@@ -28,6 +28,7 @@ public class GroupService {
 	private final GroupRepository groupRepository;
 	private final MemberService memberService;
 	private final HitService hitService;
+	private final GroupMembersRepository groupMembersRepository;
 
 	public Long createGroup(GroupCreateRequestDto dto) {
 		Member currentUser = memberService.findMember(AuditorHolder.get().getMemberId());
@@ -63,5 +64,6 @@ public class GroupService {
 				groupRepository.findById(groupId).orElseThrow(() -> new IllegalArgumentException());
 
 		GroupMembers groupMembers = GroupMembers.builder().member(member).group(group).build();
+		groupMembersRepository.save(groupMembers);
 	}
 }
