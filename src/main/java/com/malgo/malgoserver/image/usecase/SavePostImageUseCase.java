@@ -4,6 +4,9 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.malgo.malgoserver.grouppost.GroupPost;
+import com.malgo.malgoserver.image.entity.PostImage;
+import com.malgo.malgoserver.image.entity.PostImageRepository;
 import com.malgo.malgoserver.image.util.FileNameGenerator;
 import com.malgo.malgoserver.image.util.ObjectMetadataGenerator;
 import java.io.IOException;
@@ -24,11 +27,12 @@ public class SavePostImageUseCase {
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
 
+	private final PostImageRepository postImageRepository;
 	private final AmazonS3 amazonS3Client;
 	private final ObjectMetadataGenerator objectMetadataGenerator;
 	private final FileNameGenerator fileNameGenerator;
 
-	public String execute(MultipartFile multipartFile) {
+	public void execute(MultipartFile multipartFile, Long groupPostId) {
 
 		ObjectMetadata objectMetadata =
 				objectMetadataGenerator.generate(multipartFile.getContentType(), multipartFile.getSize());
@@ -44,6 +48,13 @@ public class SavePostImageUseCase {
 			log.error("S3 파일 업로드에 실패했습니다. {}", e.getMessage());
 			throw new IllegalStateException("S3 파일 업로드에 실패했습니다.");
 		}
-		return amazonS3Client.getUrl(bucket, fileName).toString();
+
+		String source = amazonS3Client.getUrl(bucket, fileName).toString();
+
+		postImageRepository.save(
+				PostImage.builder()
+						.groupPost(GroupPost.builder().id(groupPostId).build())
+						.source(source)
+						.build());
 	}
 }
