@@ -5,6 +5,7 @@ import com.malgo.malgoserver.group.dto.GroupCreateRequestDto;
 import com.malgo.malgoserver.group.entity.Group;
 import com.malgo.malgoserver.group.entity.GroupRepository;
 import com.malgo.malgoserver.groupmembers.GroupMembers;
+import com.malgo.malgoserver.groupmembers.GroupMembersRepository;
 import com.malgo.malgoserver.hit.Hit;
 import com.malgo.malgoserver.hit.HitService;
 import com.malgo.malgoserver.keyword.Keyword;

@@ -70,10 +70,9 @@ public class GroupQueryService {
 	public GroupDetailResponseDto getGroupDetail(Long id) {
 		Group group = groupRepository.findById(id).orElseThrow(() -> new IllegalArgumentException());
 
-		List<Member> groupMembers =
-				groupMembersRepository.findByGroup(group).stream()
-						.map(gm -> gm.getMember())
-						.collect(Collectors.toList());
+		//		List<Member> groupMembers = new ArrayList<>();
+		//		groupMembersRepository.findByGroup(group).stream()
+		//				.forEach(m -> groupMembers.add(memberRepository.findById(m.getMember().getId())));
 
 		List<Keyword> groupKeywords = new ArrayList<>();
 		group.getKeywords().stream()
@@ -86,7 +85,7 @@ public class GroupQueryService {
 				.groupName(group.getName())
 				.groupContent(group.getGroupContent())
 				.images(List.of())
-				.members(groupMembers)
+				.members(List.of())
 				.memberCount(getMemberCount(group))
 				.keywords(groupKeywords)
 				.build();
