@@ -10,6 +10,11 @@ import org.springframework.stereotype.Repository;
 public class CompanyRepository {
 	private final EntityManager em;
 
+	public Company save(Company company) {
+		em.persist(company);
+		return company;
+	}
+
 	public Optional<Company> findOneByCode(String code) {
 		return em
 				.createQuery("select c from Company c where c.code = :code", Company.class)
