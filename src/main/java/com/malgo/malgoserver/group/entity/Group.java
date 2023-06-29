@@ -1,4 +1,4 @@
-package com.malgo.malgoserver.group;
+package com.malgo.malgoserver.group.entity;
 
 import com.malgo.malgoserver.company.Company;
 import java.time.LocalDateTime;
@@ -24,6 +24,9 @@ public class Group {
 	private String name;
 
 	private Long ownerId;
+
+	@Column(name = "group_content")
+	private String groupContent;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "company_fk")
