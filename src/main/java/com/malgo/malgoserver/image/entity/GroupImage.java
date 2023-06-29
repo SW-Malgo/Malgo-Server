@@ -1,11 +1,15 @@
 package com.malgo.malgoserver.image.entity;
 
+import com.malgo.malgoserver.group.Group;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -34,6 +38,10 @@ public class GroupImage {
 	@Column(nullable = false)
 	@Builder.Default
 	private Boolean thumbnail = false;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "group_fk")
+	private Group group;
 
 	@NotNull @CreationTimestamp private LocalDateTime createAt;
 

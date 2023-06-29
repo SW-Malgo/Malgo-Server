@@ -1,9 +1,9 @@
 package com.malgo.malgoserver.group;
 
-import lombok.*;
-
-import javax.persistence.*;
+import com.malgo.malgoserver.company.Company;
 import java.time.LocalDateTime;
+import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Builder(toBuilder = true)
@@ -14,22 +14,22 @@ import java.time.LocalDateTime;
 @Table(name = "group_entity")
 public class Group {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "group_id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "group_id")
+	private Long id;
 
-    private String name;
+	private String name;
 
-    private Long ownerId;
+	private Long ownerId;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "company_id")
-//    private Company company;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "company_fk")
+	private Company company;
 
-    private Long max_count;
+	private Long max_count;
 
-    private LocalDateTime createAt;
+	private LocalDateTime createAt;
 
-    private LocalDateTime updateAt;
+	private LocalDateTime updateAt;
 }

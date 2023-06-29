@@ -1,18 +1,19 @@
 package com.malgo.malgoserver.hit;
 
 import com.malgo.malgoserver.Keyword.Keyword;
+import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
-
-@Entity
 @Getter
-@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Entity
+@ToString
+@Builder(toBuilder = true)
 public class Hit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +27,6 @@ public class Hit {
 	@OneToOne(fetch = FetchType.LAZY)
 	private Keyword keyword;
 
-	@NotNull
-	@CreationTimestamp
-	private LocalDateTime createAt;
-	@NotNull
-	@UpdateTimestamp
-	private LocalDateTime updateAt;
-
-	public Hit() {
-
-	}
+	@NotNull @CreationTimestamp private LocalDateTime createAt;
+	@NotNull @UpdateTimestamp private LocalDateTime updateAt;
 }
