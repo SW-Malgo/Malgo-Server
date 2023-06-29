@@ -2,7 +2,6 @@ package com.malgo.malgoserver.member;
 
 import com.malgo.malgoserver.company.Company;
 import com.malgo.malgoserver.converter.KeywordToArray;
-import com.malgo.malgoserver.member.request.MemberRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Member {
 
 	@Id
@@ -36,13 +37,4 @@ public class Member {
 
 	@NotNull @CreationTimestamp private LocalDateTime createAt;
 	@NotNull @UpdateTimestamp private LocalDateTime updateAt;
-
-	@Builder
-	public Member(String certificationId, String password, Company company, List<Long> keyword) {
-		this.certificationId = certificationId;
-		this.password = password;
-		this.company = company;
-		this.keyword = keyword;
-	}
-	
 }
