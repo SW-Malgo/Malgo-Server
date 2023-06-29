@@ -5,6 +5,7 @@ import com.malgo.malgoserver.company.CompanyRepository;
 import com.malgo.malgoserver.keyword.Keyword;
 import com.malgo.malgoserver.keyword.KeywordRepository;
 import com.malgo.malgoserver.member.request.MemberRequest;
+import com.malgo.malgoserver.member.response.MemberResponse;
 import com.malgo.malgoserver.util.token.Token;
 import com.malgo.malgoserver.util.token.TokenGenerator;
 import java.util.List;
@@ -32,7 +33,7 @@ public class MemberService {
 							.certificationId(form.getCertificationId())
 							.password(form.getPassword())
 							.company(company.get())
-							.keyword(convertToLongKeywords(form.getKeywords()))
+							.keywords(convertToLongKeywords(form.getKeywords()))
 							.build();
 			memberRepository.save(member);
 			return TokenGenerator.generateToken(member.getId(), member.getCompany().getId());
@@ -44,5 +45,19 @@ public class MemberService {
 		return keywordRepository.findByTags(keywords).stream()
 				.map(Keyword::getId)
 				.collect(Collectors.toList());
+	}
+
+	public MemberResponse findMemberHome() {
+		// token에서 memberId를 꺼낸다
+		Long memberId = 1L;
+
+		List<Keyword> keywords =
+				memberRepository.findOne(memberId).getKeywords().stream()
+						.map(keywordRepository::findOne)
+						.collect(Collectors.toList());
+
+		List<String> tags = keywords.stream().map(Keyword::getTag).collect(Collectors.toList());
+
+		return new MemberResponse(memberId, tags);
 	}
 }
