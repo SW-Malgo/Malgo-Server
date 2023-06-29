@@ -1,16 +1,13 @@
 package com.malgo.malgoserver.member.response;
 
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(toBuilder = true)
+@Data
 public class MemberResponse {
-
-	public MemberResponse(Long count, List<String> keywords) {
-		this.count = count;
-		this.keywords = keywords;
-	}
 
 	private Long count;
 
