@@ -7,6 +7,8 @@ import com.malgo.malgoserver.company.Company;
 import com.malgo.malgoserver.company.CompanyRepository;
 import com.malgo.malgoserver.keyword.Keyword;
 import com.malgo.malgoserver.keyword.KeywordRepository;
+import com.malgo.malgoserver.member.request.MemberRequest;
+import com.malgo.malgoserver.util.token.Token;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,21 +32,60 @@ public class MemberRegisterTest {
 	@Autowired MemberRepository memberRepository;
 	@Autowired CompanyRepository companyRepository;
 	@Autowired KeywordRepository keywordRepository;
+	@Autowired MemberService memberService;
 
 	@Autowired ObjectMapper mapper;
 
-	String[] keywords = {"독서", "AI", "자기계발"};
+	public static final String[] keywords = {"독서", "AI", "자기계발"};
 
-	private static final String CERTIFICATION_ID = "hackathon@gmail.com";
-	private static final String PASSWORD = "hackathon1234";
+	public static final String CERTIFICATION_ID = "hackathon@gmail.com";
+	public static final String PASSWORD = "hackathon1234";
 
-	private static final String COMPANY_NAME = "삼성전자";
-	private static final String COMPANY_CODE = "dEb25A";
+	public static final String COMPANY_NAME = "삼성전자";
+	public static final String COMPANY_CODE = "dEb25A";
 
 	@Test
-	public void 정상_회원가입() throws Exception {
+	public void 정상_회원가입_service() throws Exception {
 		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
 		Company savedCompany = companyRepository.save(company);
+
+		for (int i = 0; i < keywords.length; i++) {
+			keywordRepository.save(Keyword.builder().tag(keywords[i]).build());
+		}
+
+		List<String> keywordList =
+				keywordRepository.findAll().stream().map(Keyword::getTag).collect(Collectors.toList());
+
+		MemberRequest request =
+				MemberRequest.builder()
+						.certificationId(CERTIFICATION_ID)
+						.password(PASSWORD)
+						.code(COMPANY_CODE)
+						.keywords(keywordList)
+						.build();
+		Token token = memberService.save(request);
+
+		Optional<Member> savedMember = memberRepository.findByCertificationId(CERTIFICATION_ID);
+
+		assertThat(savedMember.isPresent()).isTrue();
+		assertThat(savedMember.get().getCertificationId()).isEqualTo(CERTIFICATION_ID);
+		assertThat(savedMember.get().getPassword()).isEqualTo(PASSWORD);
+		assertThat(savedMember.get().getCompany().getName()).isEqualTo(COMPANY_NAME);
+		assertThat(savedMember.get().getCompany().getCode()).isEqualTo(COMPANY_CODE);
+		for (int i = 0; i < keywordList.size(); i++) {
+			assertThat(keywordRepository.findOne(savedMember.get().getKeywords().get(i)).getTag())
+					.isEqualTo(keywordList.get(i));
+		}
+		assertThat(savedMember.get().getCreateAt()).isNotNull();
+		assertThat(savedMember.get().getUpdateAt()).isNotNull();
+		assertThat(token.getAccessToken()).isNotNull();
+		assertThat(token.getRefreshToken()).isNotNull();
+	}
+
+	@Test
+	public void 정상_회원가입_repository() throws Exception {
+		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
+		companyRepository.save(company);
 
 		for (int i = 0; i < keywords.length; i++) {
 			keywordRepository.save(Keyword.builder().tag(keywords[i]).build());
@@ -58,10 +99,10 @@ public class MemberRegisterTest {
 						.certificationId(CERTIFICATION_ID)
 						.password(PASSWORD)
 						.company(company)
-						.keyword(longKeywordList)
+						.keywords(longKeywordList)
 						.build();
-
 		memberRepository.save(member);
+
 		Optional<Member> savedMember = memberRepository.findByCertificationId(CERTIFICATION_ID);
 
 		assertThat(savedMember.isPresent()).isTrue();
@@ -69,7 +110,7 @@ public class MemberRegisterTest {
 		assertThat(savedMember.get().getPassword()).isEqualTo(PASSWORD);
 		assertThat(savedMember.get().getCompany().getName()).isEqualTo(COMPANY_NAME);
 		assertThat(savedMember.get().getCompany().getCode()).isEqualTo(COMPANY_CODE);
-		assertThat(savedMember.get().getKeyword()).isEqualTo(longKeywordList);
+		assertThat(savedMember.get().getKeywords()).isEqualTo(longKeywordList);
 		assertThat(savedMember.get().getCreateAt()).isNotNull();
 		assertThat(savedMember.get().getUpdateAt()).isNotNull();
 	}

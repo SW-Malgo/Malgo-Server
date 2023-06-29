@@ -24,4 +24,8 @@ public class KeywordRepository {
 	public List<Keyword> findAll() {
 		return em.createQuery("select k from Keyword k", Keyword.class).getResultList();
 	}
+
+	public Keyword findOne(Long id) {
+		return em.find(Keyword.class, id);
+	}
 }

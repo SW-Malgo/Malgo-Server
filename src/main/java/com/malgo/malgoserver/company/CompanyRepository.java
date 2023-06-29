@@ -15,6 +15,10 @@ public class CompanyRepository {
 		return company;
 	}
 
+	public Optional<Company> findOne(Long id) {
+		return Optional.ofNullable(em.find(Company.class, id));
+	}
+
 	public Optional<Company> findOneByCode(String code) {
 		return em
 				.createQuery("select c from Company c where c.code = :code", Company.class)

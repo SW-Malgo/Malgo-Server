@@ -1,25 +1,15 @@
 package com.malgo.malgoserver.member.response;
 
-import com.malgo.malgoserver.member.Member;
 import java.util.List;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(toBuilder = true)
+@Data
 public class MemberResponse {
 
-	public MemberResponse(Member member, List<String> keywords) {
-		this.certificationId = member.getCertificationId();
-		this.password = member.getPassword();
-		this.code = member.getCompany().getCode();
-		this.keywords = keywords;
-	}
-
-	private String certificationId;
-
-	private String password;
-
-	private String code;
+	private Long count;
 
 	private List<String> keywords;
 }
