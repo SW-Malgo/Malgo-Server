@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthClaims {
 
-	private Long id;
-	private String company;
+	private Long memberId;
+	private Long companyId;
 }

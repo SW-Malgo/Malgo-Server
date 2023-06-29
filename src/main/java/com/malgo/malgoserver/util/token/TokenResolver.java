@@ -28,8 +28,8 @@ public class TokenResolver {
 							.getBody();
 			return Optional.ofNullable(
 					AuthClaims.builder()
-							.id(body.get(MEMBER_ID_CLAIM_KEY, Long.class))
-							.company(body.get(COMPANY_ID_CLAIM_KEY, String.class))
+							.memberId(body.get(MEMBER_ID_CLAIM_KEY, Long.class))
+							.companyId(body.get(COMPANY_ID_CLAIM_KEY, Long.class))
 							.build());
 		} catch (Exception e) {
 			log.warn("Failed to get memberId. token: {}", token);
