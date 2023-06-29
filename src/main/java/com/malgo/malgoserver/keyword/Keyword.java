@@ -1,4 +1,4 @@
-package com.malgo.malgoserver.Keyword;
+package com.malgo.malgoserver.keyword;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
