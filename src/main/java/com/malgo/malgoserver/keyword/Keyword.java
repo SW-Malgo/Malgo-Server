@@ -9,7 +9,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Keyword {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,9 +23,4 @@ public class Keyword {
 
 	@NotNull @CreationTimestamp private LocalDateTime createAt;
 	@NotNull @UpdateTimestamp private LocalDateTime updateAt;
-
-	@Builder
-	public Keyword(String tag) {
-		this.tag = tag;
-	}
 }
