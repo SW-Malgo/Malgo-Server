@@ -10,7 +10,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Hit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +20,7 @@ public class Hit {
 	@NotNull
 	private Long id;
 
-	@NotNull private int count;
+	@NotNull private Long count;
 
 	@NotNull
 	@OneToOne(fetch = FetchType.LAZY)
@@ -26,10 +28,4 @@ public class Hit {
 
 	@NotNull @CreationTimestamp private LocalDateTime createAt;
 	@NotNull @UpdateTimestamp private LocalDateTime updateAt;
-
-	@Builder
-	public Hit(int count, Keyword keyword) {
-		this.count = count;
-		this.keyword = keyword;
-	}
 }
