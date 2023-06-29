@@ -2,18 +2,21 @@ package com.malgo.malgoserver.member;
 
 import com.malgo.malgoserver.company.Company;
 import com.malgo.malgoserver.converter.KeywordToArray;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Member {
 
 	@Id
@@ -33,10 +36,14 @@ public class Member {
 	@Convert(converter = KeywordToArray.class)
 	private List<Long> keyword = new ArrayList<>();
 
-	@Builder
-	public Member(String certificationId, String password, Company company) {
-		this.certificationId = certificationId;
-		this.password = password;
-		this.company = company;
+	@NotNull
+	@CreationTimestamp
+	private LocalDateTime createAt;
+	@NotNull
+	@UpdateTimestamp
+	private LocalDateTime updateAt;
+
+	public Member() {
+
 	}
 }
