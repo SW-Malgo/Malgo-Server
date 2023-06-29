@@ -11,9 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class GroupService {
 
-    private final GroupRepository groupRepository;
+	private final GroupRepository groupRepository;
 
-    public Long createGroup(Group group) {
-        return groupRepository.save(group).getId();
-    }
+	public Long createGroup(Group group) {
+		return groupRepository.save(group).getId();
+	}
 }

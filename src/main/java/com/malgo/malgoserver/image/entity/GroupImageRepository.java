@@ -1,12 +1,9 @@
 package com.malgo.malgoserver.image.entity;
 
 import com.malgo.malgoserver.group.entity.Group;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
 public interface GroupImageRepository extends JpaRepository<GroupImage, Long> {
-    Optional<GroupImage> findByGroup(Group group);
+	Optional<GroupImage> findByGroup(Group group);
 }

@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.preauth.AbstractPreAuthen
 @EnableWebSecurity
 @Configuration(value = "webSecurityConfig")
 @RequiredArgsConstructor
+// @ComponentScan(basePackages = "com.malgo.malgoserver.config.security")
 public class SecurityConfig {
 
 	private final AuthProvider authProvider;
