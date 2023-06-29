@@ -50,5 +50,4 @@ public class MemberService {
 				.map(Keyword::getId)
 				.collect(Collectors.toList());
 	}
-
 }

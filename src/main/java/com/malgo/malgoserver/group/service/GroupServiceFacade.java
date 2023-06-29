@@ -10,7 +10,6 @@ import com.malgo.malgoserver.keywordgroup.KeywordGroupRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.persistence.Entity;
 import lombok.*;
 import org.springframework.stereotype.Service;
 
