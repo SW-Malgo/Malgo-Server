@@ -22,6 +22,7 @@ public class MemberService {
 	private final MemberRepository memberRepository;
 	private final CompanyRepository companyRepository;
 	private final KeywordRepository keywordRepository;
+	private final TokenGenerator tokenGenerator;
 
 	public Token save(MemberRequest form) {
 		Optional<Company> company = companyRepository.findOneByCode(form.getCode());
@@ -35,7 +36,7 @@ public class MemberService {
 							.keywords(convertToLongKeywords(form.getKeywords()))
 							.build();
 			memberRepository.save(member);
-			return TokenGenerator.generateToken(member.getId(), member.getCompany().getId());
+			return tokenGenerator.generateToken(member.getId(), member.getCompany().getId());
 		}
 		return null;
 	}
