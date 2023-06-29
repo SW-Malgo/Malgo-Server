@@ -8,7 +8,6 @@ buildscript {
         spotlessVersion = '6.8.0'
         asciidoctorVersion = '3.3.2'
         jsonwebtokenVersion = '0.11.5'
-        queryDslVersion = "5.0.0"
     }
 
     repositories {
@@ -27,7 +26,6 @@ plugins {
     id "io.spring.dependency-management" version "${dependencyManagementVersion}"
     id 'org.asciidoctor.jvm.convert' version "${asciidoctorVersion}"
     id 'com.epages.restdocs-api-spec' version '0.16.0'
-    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 apply plugin: 'java'
@@ -72,10 +70,6 @@ dependencies {
 
     // aws bucket
     implementation'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
-
-    // queryDSL
-    implementation "com.querydsl:querydsl-jpa:5.0.0"
-    implementation "com.querydsl:querydsl-apt:5.0.0"
 
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
