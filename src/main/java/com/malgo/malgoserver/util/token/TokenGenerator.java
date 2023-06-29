@@ -51,7 +51,7 @@ public class TokenGenerator {
 				.compact();
 	}
 
-	public static Token generateToken(Long memberId, Long companyId) {
+	public Token generateToken(Long memberId, Long companyId) {
 		return Token.builder()
 				.accessToken(generateAccessToken(memberId, companyId))
 				.refreshToken(generateRefreshToken(memberId, companyId))
