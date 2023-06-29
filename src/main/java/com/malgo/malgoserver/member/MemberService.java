@@ -41,9 +41,14 @@ public class MemberService {
 		return null;
 	}
 
+	public Member findMember(Long id) {
+		return this.memberRepository.findOne(id);
+	}
+
 	private List<Long> convertToLongKeywords(List<String> keywords) {
 		return keywordRepository.findByTags(keywords).stream()
 				.map(Keyword::getId)
 				.collect(Collectors.toList());
 	}
+
 }
