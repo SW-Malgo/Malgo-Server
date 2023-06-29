@@ -1,7 +1,7 @@
 package com.malgo.malgoserver.member;
 
-import com.malgo.malgoserver.keyword.converter.KeywordConverter;
 import com.malgo.malgoserver.company.Company;
+import com.malgo.malgoserver.keyword.converter.KeywordConverter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
