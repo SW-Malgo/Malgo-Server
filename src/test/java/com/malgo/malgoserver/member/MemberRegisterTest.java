@@ -8,6 +8,7 @@ import com.malgo.malgoserver.company.CompanyRepository;
 import com.malgo.malgoserver.keyword.Keyword;
 import com.malgo.malgoserver.keyword.KeywordRepository;
 import com.malgo.malgoserver.member.request.MemberRequest;
+import com.malgo.malgoserver.util.token.Token;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,13 +36,13 @@ public class MemberRegisterTest {
 
 	@Autowired ObjectMapper mapper;
 
-	String[] keywords = {"독서", "AI", "자기계발"};
+	public static final String[] keywords = {"독서", "AI", "자기계발"};
 
-	private static final String CERTIFICATION_ID = "hackathon@gmail.com";
-	private static final String PASSWORD = "hackathon1234";
+	public static final String CERTIFICATION_ID = "hackathon@gmail.com";
+	public static final String PASSWORD = "hackathon1234";
 
-	private static final String COMPANY_NAME = "삼성전자";
-	private static final String COMPANY_CODE = "dEb25A";
+	public static final String COMPANY_NAME = "삼성전자";
+	public static final String COMPANY_CODE = "dEb25A";
 
 	@Test
 	public void 정상_회원가입_service() throws Exception {
@@ -62,7 +63,7 @@ public class MemberRegisterTest {
 						.code(COMPANY_CODE)
 						.keywords(keywordList)
 						.build();
-		memberService.save(request);
+		Token token = memberService.save(request);
 
 		Optional<Member> savedMember = memberRepository.findByCertificationId(CERTIFICATION_ID);
 
@@ -77,6 +78,8 @@ public class MemberRegisterTest {
 		}
 		assertThat(savedMember.get().getCreateAt()).isNotNull();
 		assertThat(savedMember.get().getUpdateAt()).isNotNull();
+		assertThat(token.getAccessToken()).isNotNull();
+		assertThat(token.getRefreshToken()).isNotNull();
 	}
 
 	@Test
