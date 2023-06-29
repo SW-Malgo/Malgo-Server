@@ -9,16 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class KeywordService {
 
-    private final KeywordRepository keywordRepository;
+	private final KeywordRepository keywordRepository;
 
-    public long createKeyword(String tag) throws IllegalAccessException {
+	public Long createKeyword(String tag) {
 
-        if (keywordRepository.existByTag(tag)) {
-            throw new IllegalAccessException("존재하는 키워드 입니다.");
-        }
-        Keyword keyword = Keyword.builder()
-                .tag(tag)
-                .build();
-        return keywordRepository.save(keyword).getId();
-    }
+		if (keywordRepository.existsByTag(tag)) {
+			throw new IllegalArgumentException("존재하는 키워드 입니다.");
+		}
+		Keyword keyword = Keyword.builder().tag(tag).build();
+		return keywordRepository.save(keyword).getId();
+	}
 }
