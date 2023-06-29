@@ -18,7 +18,6 @@ public class Hit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "hit_id")
-	@NotNull
 	private Long id;
 
 	@NotNull private int count;
