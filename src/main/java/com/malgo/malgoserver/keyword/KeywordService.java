@@ -13,7 +13,7 @@ public class KeywordService {
 
     public long createKeyword(String tag) {
 
-        if (keywordRepository.existByTag(tag)) {
+        if (keywordRepository.existsByTag(tag)) {
             return -1l;
         }
         Keyword keyword = Keyword.builder()
