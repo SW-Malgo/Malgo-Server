@@ -15,5 +15,5 @@ public class MemberRequest {
 
 	@NotNull private String code;
 
-	@NotNull private List<String> keyword;
+	@NotNull private List<String> keywords;
 }
