@@ -2,14 +2,16 @@ package com.malgo.malgoserver.Keyword;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class Keyword {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +21,14 @@ public class Keyword {
 
 	@NotNull private String tag;
 
-	@Builder
-	public Keyword(String tag) {
-		this.tag = tag;
+	@NotNull
+	@CreationTimestamp
+	private LocalDateTime createAt;
+	@NotNull
+	@UpdateTimestamp
+	private LocalDateTime updateAt;
+
+	public Keyword() {
+
 	}
 }
