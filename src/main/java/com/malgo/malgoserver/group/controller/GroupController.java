@@ -1,7 +1,5 @@
 package com.malgo.malgoserver.group.controller;
 
-import com.malgo.malgoserver.group.dto.GroupCreateRequestDto;
-import com.malgo.malgoserver.group.entity.Group;
 import com.malgo.malgoserver.group.service.GroupQueryService;
 import com.malgo.malgoserver.group.service.GroupService;
 import com.malgo.malgoserver.group.service.GroupServiceFacade;
@@ -29,7 +27,7 @@ public class GroupController {
     @GetMapping("/")
     public ApiResponse<ApiResponse.SuccessBody<Result<List<GroupServiceFacade.GroupResponse>>>> queryGroup(
                             @RequestParam(name = "withKeyword") Boolean withKeyword, @CurrentUser Member currentUser) {
-        List<GroupServiceFacade.GroupResponse> collection = groupServiceFacade.execute(currentUser.getKeyword(), withKeyword);
+        List<GroupServiceFacade.GroupResponse> collection = groupServiceFacade.execute(currentUser.getKeywords(), withKeyword);
         return ApiResponseGenerator.success(new Result(collection), HttpStatus.OK);
     }
 

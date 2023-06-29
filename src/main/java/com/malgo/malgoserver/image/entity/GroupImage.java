@@ -1,6 +1,6 @@
 package com.malgo.malgoserver.image.entity;
 
-import com.malgo.malgoserver.group.Group;
+import com.malgo.malgoserver.group.entity.Group;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
