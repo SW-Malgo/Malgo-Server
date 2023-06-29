@@ -9,6 +9,8 @@ import com.malgo.malgoserver.keyword.Keyword;
 import com.malgo.malgoserver.keyword.KeywordRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -48,8 +50,27 @@ public class MemberRegisterTest {
 		for (int i = 0; i < keywords.length; i++) {
 			keywordList.add(Keyword.builder().tag(keywords[i]).build());
 		}
+
+//		Member member = Member.builder()
+//				.certificationId(CERTIFICATION_ID)
+//				.password(PASSWORD)
+//				.company(company)
+//				.keyword()
+//				.build()
 	}
 
+	@Test
+	public void 회사_조회(){
+		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
+		companyRepository.save(company);
+		Optional<Company> savedCompany = companyRepository.findOneByCode(COMPANY_CODE);
+
+		assertThat(savedCompany.isPresent()).isTrue();
+		assertThat(savedCompany.get().getName()).isEqualTo(COMPANY_NAME);
+		assertThat(savedCompany.get().getCode()).isEqualTo(COMPANY_CODE);
+		assertThat(savedCompany.get().getCreateAt()).isNotNull();
+		assertThat(savedCompany.get().getUpdateAt()).isNotNull();
+	}
 	@Test
 	public void 회사_생성() {
 		Company company = Company.builder().name("삼성전자").code(COMPANY_CODE).build();
@@ -64,14 +85,37 @@ public class MemberRegisterTest {
 	}
 
 	@Test
+	public void 키워드_조회(){
+//		List<Keyword> savedKeywordList = new ArrayList<>();
+//		for (int i = 0; i < keywords.length; i++) {
+//			savedKeywordList.add(Keyword.builder().tag(keywords[i]).build());
+//		}
+//		keywordRepository.saveAll(savedKeywordList);
+//
+//		List<Keyword> keywordList = keywordRepository.findAll();
+//
+//		assertThat(keywordList.size()).isEqualTo(keywords.length);
+//		for (int i = 0; i < keywords.length; i++)
+//			assertThat(keywordList.get(i).getTag()).isEqualTo(keywords[i]);
+	}
+
+	@Test
 	public void 키워드_생성() {
 		List<Keyword> savedKeywordList = new ArrayList<>();
 		for (int i = 0; i < keywords.length; i++) {
-			savedKeywordList.add(Keyword.builder().tag(keywords[i]).build());
+			savedKeywordList.add(keywordRepository.save(Keyword.builder().tag(keywords[i]).build()));
 		}
 
 		assertThat(savedKeywordList.size()).isEqualTo(keywords.length);
 		for (int i = 0; i < keywords.length; i++)
 			assertThat(savedKeywordList.get(i).getTag()).isEqualTo(keywords[i]);
+	}
+
+	@Test
+	public void 멤버_키워드_조회(){
+		List<Keyword> savedKeywordList = new ArrayList<>();
+		for (int i = 0; i < keywords.length; i++) {
+			savedKeywordList.add(Keyword.builder().tag(keywords[i]).build());
+		}
 	}
 }

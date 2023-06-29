@@ -10,6 +10,11 @@ import org.springframework.stereotype.Repository;
 public class KeywordRepository {
 	private final EntityManager em;
 
+	public Keyword save(Keyword keyword) {
+		em.persist(keyword);
+		return keyword;
+	}
+
 	public List<Keyword> findByTags(List<String> tags) {
 		return em.createQuery("select k from Keyword k where k.tag in :tags", Keyword.class)
 				.setParameter("tags", tags)
