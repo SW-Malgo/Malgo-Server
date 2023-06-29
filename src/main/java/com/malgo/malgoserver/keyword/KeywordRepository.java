@@ -1,31 +1,9 @@
 package com.malgo.malgoserver.keyword;
 
-import java.util.List;
-import javax.persistence.EntityManager;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
-@Repository
-@RequiredArgsConstructor
-public class KeywordRepository {
-	private final EntityManager em;
+public interface KeywordRepository extends KeywordRepositoryCustom {
+	Optional<Keyword> findByTag(String tag);
 
-	public Keyword save(Keyword keyword) {
-		em.persist(keyword);
-		return keyword;
-	}
-
-	public List<Keyword> findByTags(List<String> tags) {
-		return em.createQuery("select k from Keyword k where k.tag in :tags", Keyword.class)
-				.setParameter("tags", tags)
-				.getResultList();
-	}
-
-	public List<Keyword> findAll() {
-		return em.createQuery("select k from Keyword k", Keyword.class).getResultList();
-	}
-
-	public Keyword findOne(Long id) {
-		return em.find(Keyword.class, id);
-	}
+	Boolean existByTag(String tag);
 }

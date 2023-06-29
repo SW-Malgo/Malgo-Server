@@ -1,0 +1,18 @@
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIATAIHYCWHF3X6DQKK
+      secretKey: 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
+    s3:
+      bucket: malgo.images
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error

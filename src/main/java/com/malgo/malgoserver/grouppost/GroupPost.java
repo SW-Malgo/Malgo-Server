@@ -1,6 +1,6 @@
 package com.malgo.malgoserver.grouppost;
 
-import com.malgo.malgoserver.group.Group;
+import com.malgo.malgoserver.group.entity.Group;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import lombok.*;

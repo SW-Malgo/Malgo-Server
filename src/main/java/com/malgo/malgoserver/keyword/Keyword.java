@@ -1,6 +1,6 @@
 package com.malgo.malgoserver.keyword;
 
-import com.malgo.malgoserver.group.Group;
+import com.malgo.malgoserver.group.entity.Group;
 import com.malgo.malgoserver.member.Member;
 import java.time.LocalDateTime;
 import javax.persistence.*;
