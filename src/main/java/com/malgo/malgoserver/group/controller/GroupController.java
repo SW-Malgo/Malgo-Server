@@ -43,7 +43,7 @@ public class GroupController {
     }
 
     @PostMapping("/")
-    public ApiResponse<Long> createGroup(@RequestBody GroupCreateRequestDto groupDto) {
+    public ApiResponse<ApiResponse.SuccessBody<Long>> createGroup(@RequestBody GroupCreateRequestDto groupDto) {
 
         AuthClaims authClaims = AuditorHolder.get();
         Member currentUser =memberService.findMember(authClaims.getMemberId());
@@ -54,13 +54,13 @@ public class GroupController {
                 .max_count(10l)
                 .ownerId(currentUser.getId())
                 .build();
-        groupService.createGroup(group);
+        Long groupId = groupService.createGroup(group);
 
         groupDto.getKeywords().forEach(tag -> {
             keywordService.createKeyword(tag);
         });
 
-        return null;
+        return ApiResponseGenerator.success(groupId, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -69,6 +69,13 @@ public class GroupController {
         GroupDetailResponseDto responseDto = groupQueryService.getGroupDetail(id);
 
         return ApiResponseGenerator.success(responseDto, HttpStatus.OK);
+    }
+
+    @PostMapping("/{groupId}")
+    public ApiResponse<ApiResponse.SuccessBody<String>> joinClub(@PathVariable Long groupId) {
+        AuthClaims authClaims = AuditorHolder.get();
+        groupService.joinGroup(authClaims.getMemberId(), groupId);
+        return ApiResponseGenerator.success("join", HttpStatus.OK);
     }
 
 
