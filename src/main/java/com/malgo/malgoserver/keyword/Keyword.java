@@ -1,7 +1,5 @@
 package com.malgo.malgoserver.keyword;
 
-import com.malgo.malgoserver.group.entity.Group;
-import com.malgo.malgoserver.member.Member;
 import java.time.LocalDateTime;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,14 +22,6 @@ public class Keyword {
 	private Long id;
 
 	@NotNull private String tag;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "group_fk")
-	private Group group;
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "member_fk")
-	private Member member;
 
 	@Column(nullable = false, updatable = false)
 	@CreatedDate

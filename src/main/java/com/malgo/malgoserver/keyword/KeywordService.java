@@ -9,16 +9,14 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class KeywordService {
 
-    private final KeywordRepository keywordRepository;
+	private final KeywordRepository keywordRepository;
 
-    public long createKeyword(String tag) {
+	public long createKeyword(String tag) {
 
-        if (keywordRepository.existsByTag(tag)) {
-            return -1l;
-        }
-        Keyword keyword = Keyword.builder()
-                .tag(tag)
-                .build();
-        return keywordRepository.save(keyword).getId();
-    }
+		if (keywordRepository.existsByTag(tag)) {
+			return -1l;
+		}
+		Keyword keyword = Keyword.builder().tag(tag).build();
+		return keywordRepository.save(keyword).getId();
+	}
 }

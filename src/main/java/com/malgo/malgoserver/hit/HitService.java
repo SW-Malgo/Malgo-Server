@@ -1,7 +1,6 @@
 package com.malgo.malgoserver.hit;
 
 import com.malgo.malgoserver.keyword.Keyword;
-import com.malgo.malgoserver.keyword.KeywordRepository;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,8 @@ public class HitService {
 				.map(Keyword::getTag)
 				.collect(Collectors.toList());
 	}
-	public Long save(Hit hit){
+
+	public Long save(Hit hit) {
 		return hitRepository.save(hit).getId();
 	}
 }

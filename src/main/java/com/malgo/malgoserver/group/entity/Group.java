@@ -1,8 +1,12 @@
 package com.malgo.malgoserver.group.entity;
 
 import com.malgo.malgoserver.company.Company;
+import com.malgo.malgoserver.keyword.converter.KeywordConverter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -43,4 +47,9 @@ public class Group {
 	@Column(nullable = false)
 	@LastModifiedDate
 	private LocalDateTime updateAt;
+
+	@NotNull
+	@Convert(converter = KeywordConverter.class)
+	@Builder.Default
+	private List<Long> keywords = new ArrayList<>();
 }
