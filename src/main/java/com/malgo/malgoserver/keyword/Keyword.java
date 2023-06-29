@@ -19,7 +19,6 @@ public class Keyword {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "keyword_id")
-	@NotNull
 	private Long id;
 
 	@NotNull private String tag;
