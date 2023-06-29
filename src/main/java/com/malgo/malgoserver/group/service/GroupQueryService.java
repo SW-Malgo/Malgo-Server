@@ -43,7 +43,7 @@ public class GroupQueryService {
     public List<Group> queryGroup(List<Long> keywordIds, Boolean withKeyword) {
 
         List<Keyword> keywords = keywordIds.stream()
-                .map(id -> keywordRepository.findById(id))
+                .map(id -> keywordRepository.findById(id).orElseThrow(() -> new IllegalArgumentException()))
                 .collect(Collectors.toList());
 
         if (withKeyword == true) {
