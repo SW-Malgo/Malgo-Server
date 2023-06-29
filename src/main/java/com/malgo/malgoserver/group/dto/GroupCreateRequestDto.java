@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 @AllArgsConstructor
 public class GroupCreateRequestDto {
 
-	private List<MultipartFile> images;
+//	private List<MultipartFile> images;
 
 	private String groupName;
 
