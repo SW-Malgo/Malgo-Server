@@ -1,10 +1,9 @@
 package com.malgo.malgoserver.grouppost;
 
 import com.malgo.malgoserver.group.Group;
-import lombok.*;
-
-import javax.persistence.*;
 import java.time.LocalDateTime;
+import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Builder(toBuilder = true)
@@ -14,18 +13,18 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id")
 public class GroupPost {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "group_post_id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "group_post_id")
+	private Long id;
 
-    private String content;
+	private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "group_id")
-    private Group group;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "group_id")
+	private Group group;
 
-    private LocalDateTime createAt;
+	private LocalDateTime createAt;
 
-    private LocalDateTime updateAt;
+	private LocalDateTime updateAt;
 }
