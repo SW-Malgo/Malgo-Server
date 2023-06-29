@@ -1,26 +1,27 @@
 package com.malgo.malgoserver.group.dto;
 
+import com.malgo.malgoserver.image.entity.GroupImage;
 import com.malgo.malgoserver.keyword.Keyword;
-import com.malgo.malgoserver.member.Member;
-import jdk.jfr.Category;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 @Data
-@Builder(toBuilder = true)
-public class GroupDetailResponseDto {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class GroupCreateRequestDto {
+
+    private List<MultipartFile> images;
 
     private String groupName;
 
-    private List<Keyword> keywords;
+    private String groupContents;
 
-    private long memberCount;
+    private List<String> keywords;
 
-    private List<Member> members;
-
-    private String groupContent;
-
-    private List<String> images;
 }
