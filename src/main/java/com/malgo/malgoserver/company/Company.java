@@ -9,7 +9,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@Builder
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class Company {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +24,4 @@ public class Company {
 
 	@NotNull @CreationTimestamp private LocalDateTime createAt;
 	@NotNull @UpdateTimestamp private LocalDateTime updateAt;
-
-	@Builder
-	public Company(String name, String code) {
-		this.name = name;
-		this.code = code;
-	}
 }
